@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "ovelay-kit-devtools",
+  "description": "unofficial devtools",
+  "version": "1.0",
+  "icons": {
+    "192": "img/logo/logo192.png",
+    "512": "img/logo/logo512.png"
+  },
+  "action": {
+    "default_icon": "img/logo/logo.png",
+    "default_title": "test",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["tabs", "activeTab", "scripting", "storage"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "host_permissions": ["<all_urls>"]
+}
