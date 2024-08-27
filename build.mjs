@@ -1,9 +1,7 @@
-const esbuild = require("esbuild");
-const fs = require("node:fs");
-// import * as esbuild from "esbuild";
-// import * as fs from "node:fs";
+import * as esbuild from "esbuild";
+import * as fs from "node:fs";
 
-esbuild
+await esbuild
   .build({
     entryPoints: ["./src/popup.tsx", "./src/background.ts", "./src/content.ts"],
     bundle: true,
