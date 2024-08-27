@@ -1,6 +1,7 @@
 window.addEventListener("sendToExtension", ((event: CustomEvent) => {
   const data = event.detail;
   chrome.storage.local.set({ "overlay-kit": data });
+  chrome.runtime.sendMessage({ type: "SYNC_STATE" });
 }) as EventListener);
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -12,5 +13,5 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 window.addEventListener("beforeunload", function () {
-  chrome.storage.local.set({ "overlay-kit": [] });
+  chrome.storage.local.remove("overlay-kit");
 });

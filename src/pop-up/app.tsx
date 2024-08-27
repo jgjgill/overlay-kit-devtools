@@ -10,22 +10,34 @@ export type OverlayItem = {
 
 export default function App() {
   const [overlayList, setOverlayList] = useState<OverlayItem[] | null>(null);
+  const [currentId, setCurrentId] = useState();
 
   useEffect(() => {
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+      chrome.storage.local.get("overlay-kit", (result) => {
+        setOverlayList(result["overlay-kit"]["overlayList"]);
+        setCurrentId(result["overlay-kit"]["currentId"]);
+      });
+    });
+
     chrome.storage.local.get("overlay-kit", (result) => {
-      setOverlayList(result["overlay-kit"]);
+      setOverlayList(result["overlay-kit"]["overlayList"]);
+      setCurrentId(result["overlay-kit"]["currentId"]);
     });
   }, []);
 
   const isExistOverlayList = overlayList !== null && overlayList.length !== 0;
+  const isexistOverlayData = isExistOverlayList || currentId;
 
   return (
-    <h1>
-      {!isExistOverlayList && <span>Hello world!</span>}
+    <div>
+      {!isexistOverlayData && <span>Hello world!</span>}
+      {currentId && <span>currentId: {currentId}</span>}
       {isExistOverlayList &&
         overlayList.map((item) => (
           <button
             key={item.id}
+            style={{ borderColor: item.id === currentId ? "blue" : "" }}
             onClick={async () => {
               const tab = await getCurrentTab();
 
@@ -35,15 +47,11 @@ export default function App() {
                   data: item.id,
                 });
               }
-
-              setOverlayList((prev) =>
-                prev ? prev.filter((prevItem) => prevItem.id !== item.id) : null
-              );
             }}>
             <div>{item.id}</div>
             <div>{item.isOpen}</div>
           </button>
         ))}
-    </h1>
+    </div>
   );
 }
