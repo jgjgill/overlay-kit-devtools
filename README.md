@@ -8,7 +8,7 @@
 
 현재 실험 단계 플러그인으로 직접 사용하기 위해서는 몇 가지 작업이 필요해요.
 
-만약 해당 플러그인을 테스트해보고 싶으시면 [설정](https://github.com/jgjgill/overlay-kit-devtools/new/main?filename=README.md#%EC%84%A4%EC%A0%95)을 확인해 주세요.
+만약 해당 플러그인을 테스트해보고 싶으시면 [설정](https://github.com/jgjgill/overlay-kit-devtools?tab=readme-ov-file#%EC%84%A4%EC%A0%95)을 확인해 주세요.
 
 ## 소개
 
